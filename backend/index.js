@@ -1,16 +1,23 @@
-// backend/index.js
 const express = require('express');
 const mongoose = require('mongoose');
-const app = express();
 const cors = require('cors');
+const app = express();
 
-// Enable CORS for frontend requests
-app.use(cors());
+// Configure CORS - make sure this comes BEFORE your routes
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'http://localhost',
+        'http://docker.caracal.ikt-fag.no',
+        'http://caracal.ikt-fag.no',
+        // Add any other domains you need to allow
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 
-// Get MongoDB URI from environment variable or use default
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mydatabase';
 
-mongoose.connect(mongoURI)
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mydatabase')
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
