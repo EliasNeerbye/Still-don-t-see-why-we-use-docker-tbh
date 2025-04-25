@@ -1,7 +1,8 @@
-// Get API URL from environment variables
-const API_URL = import.meta.env.VITE_API_URL || 'http://backend:3000';
+// Use the current hostname (the one hosting the frontend)
+// with the backend port
+const API_URL = `http://${window.location.hostname}:3000`;
 
-console.log('Using API URL:', API_URL); // For debugging
+console.log('Using API URL:', API_URL);
 
 export const fetchLogs = async () => {
   try {
