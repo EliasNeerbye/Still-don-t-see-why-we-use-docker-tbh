@@ -32,6 +32,8 @@ services:
       - backend
     ports:
       - "80:5173"
+    environment:
+      - VITE_API_URL=http://backend:3000
     networks:
       app_network:
         ipv4_address: 172.20.0.4
